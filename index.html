@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <script src="public/js/vendor/qrcode.min.js"></script>
+
+    <title>QR Gen - Fastest & Easiest QR Code Generator On The Web!</title>
+
+    <meta charset="UTF-8">
+    <meta name="description"
+        content="Generate free QR codes for website links and any other data. Download the QR code and easily share with whoever you like. The fastest, easiest to use QR tool on the web!">
+    <meta property="og:description"
+        content="Generate free QR codes for website links and any other data. Download the QR code and easily share with whoever you like. The fastest, easiest to use QR tool on the web!">
+
+    <meta property="og:title" content="QR Gen - Fastest & Easiest QR Code Generator On The Web!">
+
+    <meta name="keywords"
+        content="qr generator, make free qr codes, fast qr code, free qr code, easy qr code, download qr code, qr code 5 seconds, quality qr code, qr code link, qr-gen">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+            height: 100%;
+            color: white;
+            font-family: 'Rubik', sans-serif;
+        }
+
+        #mainContent {
+            margin-top: 210px;
+            text-align: center;
+        }
+
+        #mainTitle {
+            text-align: center;
+            font-size: 50px;
+            font-weight: 400;
+        }
+
+        #inputContainer {
+            display: inline-block;
+            margin-top: 20px;
+            width: 550px;
+            max-width: 80%;
+        }
+
+        #mainInput {
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            width: 100%;
+            height: 40px;
+            border: none;
+            border-radius: 20px;
+            padding: 5px 20px;
+        }
+
+        #mainInput:focus {
+            outline: none;
+        }
+
+        #qrContain {
+            width: 250px;
+            height: 250px;
+            overflow: hidden;
+            margin-top: 40px;
+            margin-bottom: 30px;
+        }
+
+        #qrContain img {
+            width: 250px;
+            height: 250px;
+        }
+
+        #downloadBtn {
+            background-color: #28a745;
+            padding: 8px 18px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 20px;
+            text-decoration: none;
+            color: white;
+        }
+
+        @media only screen and (max-width: 625px) {
+            #mainContent {
+                margin-top: 100px;
+            }
+            #mainTitle {
+                font-size: 40px;
+            }
+        }
+    </style>
+    <script>
+        let qrCode;
+    </script>
+</head>
+
+<body>
+    <div id="mainContent">
+        <h1 id="mainTitle">QR Code Generator</h1>
+        <div>
+            <div id="inputContainer">
+                <input id="mainInput" type="text" placeholder="Start typing to generate QR code...">
+            </div>
+        </div>
+
+        <div id="qrContain" style="display: none;">
+            <div id="qrCode"></div>
+        </div>
+
+        <div>
+            <a href="#" id="downloadBtn" style="display: none;" download>
+                DOWNLOAD PNG
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+        qrCode = new QRCode("qrCode", {
+            text: "http://example.com",
+            width: 900,
+            height: 900
+        });
+
+        const input = document.getElementById('mainInput');
+        input.addEventListener('input', updateQr);
+
+        function updateQr(e) {
+            if (e.target.value == '') {
+                document.getElementById('downloadBtn').style.display = 'none';
+                document.getElementById('qrContain').style.display = 'none';
+                return;
+            }
+            qrCode.clear();
+            qrCode.makeCode(e.target.value);
+
+            document.getElementById('downloadBtn').style.display = 'inline-block';
+            document.getElementById('qrContain').style.display = 'inline-block';
+            document.getElementById('downloadBtn').href = qrCode._el.querySelectorAll('img')[0].src;
+            document.getElementById('downloadBtn').download = `QR-Gen․io Code #${Date.now()}`;
+        }
+    </script>
+</body>
+
+</html>
